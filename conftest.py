@@ -7,13 +7,13 @@ from environment.config import GetConfig as config
 
 @pytest.fixture(scope="module")
 def driver(request):
-    # driver = webdriver.Chrome()
     capabilities = {
         "browserName": "chrome",
         "enableVNC": True,
         "enableVideo": False
     }
-    driver = webdriver.Remote(command_executor="http://34.107.8.158:4444/wd/hub", desired_capabilities=capabilities)
+    webdriver_url = config().get('environment', 'webdriver_url')
+    driver = webdriver.Remote(command_executor=webdriver_url, desired_capabilities=capabilities)
     driver.maximize_window()
     server_url = config().get('environment', 'host')
     driver.get(server_url)
