@@ -53,6 +53,7 @@ class LoginPage:
             message = page(driver).get_element(locator.login_error_msg)
             try:
                 assert message.text == 'Неправильный логин или пароль', 'Некорректный текст ошибки'
+                page(driver).get_screenshot()
             except AssertionError:
                 page(driver).get_screenshot()
                 page(driver).remove_highlight(message)
